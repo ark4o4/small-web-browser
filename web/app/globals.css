@@ -1,0 +1,17 @@
+*{box-sizing:border-box}html,body{height:100%;margin:0;font:14px system-ui,sans-serif;color:#1b1b1b;background:#f4f4f2}
+.app{display:flex;flex-direction:column;height:100%}
+.chrome{display:flex;gap:6px;padding:8px;background:#e7e7e3;border-bottom:1px solid #ccc;align-items:center}
+.chrome button,.chrome select,.card button,.history button{padding:6px 10px;border:1px solid #bbb;background:#fff;border-radius:6px;cursor:pointer}
+.chrome button:disabled{opacity:.35;cursor:default}
+.bar{flex:2}.search{flex:1}.chrome input{width:100%;padding:6px 10px;border:1px solid #bbb;border-radius:6px}
+.progress{padding:4px 10px;background:#fff3cd;font-size:12px}.banner{padding:6px 10px}.err{color:#a40000;background:#fde8e8}
+.body{flex:1;display:flex;min-height:0}.main{flex:1;min-width:0;display:flex;background:#fff}.dim-out{opacity:.5}
+.frame{flex:1;border:0;width:100%;height:100%;background:#fff}
+.pane{padding:1.5rem 2rem;max-width:46rem;width:100%}.scroll{overflow:auto;max-width:none}
+.list li,.results li{margin:.6rem 0}.results{padding-left:1.2rem}.dim{color:#777;font-size:12px}
+.history{width:300px;border-left:1px solid #ccc;overflow:auto;padding:0 12px;background:#fafaf8}
+.history ul{list-style:none;padding:0}.history li{padding:6px 0;border-bottom:1px solid #eee}.history .dead a{color:#a40000}
+.modal{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center}
+.card{background:#fff;padding:1rem 1.25rem;border-radius:10px;width:min(560px,92vw);display:flex;flex-direction:column;gap:8px}
+.card label{display:flex;flex-direction:column;gap:3px;font-size:12px}.card input,.card textarea{padding:6px;font:13px monospace;border:1px solid #bbb;border-radius:6px}
+.row{display:flex;gap:8px}
