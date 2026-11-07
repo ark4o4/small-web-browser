@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "seed": "ts-node --transpile-only src/seed.ts",
+    "seed:check": "ts-node --transpile-only src/seed-check.ts",
     "test": "node --test -r ts-node/register/transpile-only src/*.test.ts"
   },
   "dependencies": {
