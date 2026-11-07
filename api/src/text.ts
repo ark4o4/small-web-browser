@@ -7,16 +7,28 @@ export function extractText(html: string): string {
     .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ').trim();
 }
+
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// Mongo stems words ("tides" matches "tide"), so try the term first, then plausible stems.
+// Matches are whole-word, so a short stem like "tid" can't hit the middle of "Tidepool".
+function forms(term: string): string[] {
+  const out = [term];
+  for (const suf of ['ing', 'es', 'ed', 's']) {
+    if (term.endsWith(suf) && term.length - suf.length >= 3) out.push(term.slice(0, -suf.length));
+  }
+  return out;
+}
+
 export function snippet(text: string, query: string, width = 170): string {
-  const low = text.toLowerCase();
   let at = -1;
-  for (const raw of query.toLowerCase().replace(/["]/g, ' ').split(/\s+/)) {
-    const term = raw.replace(/^-/, '');
-    if (term.length < 2 || raw.startsWith('-')) continue;
-    // Mongo stems ("tides" matches "tide"), so also try a trimmed form.
-    for (const t of [term, term.slice(0, Math.max(3, term.length - 2))]) {
-      const i = low.indexOf(t);
-      if (i >= 0 && (at < 0 || i < at)) at = i;
+  for (const raw of query.replace(/"/g, ' ').split(/\s+/)) {
+    if (raw.startsWith('-')) continue;
+    const term = raw.toLowerCase();
+    if (term.length < 2) continue;
+    for (const f of forms(term)) {
+      const m = new RegExp('\\b' + esc(f) + '\\b', 'i').exec(text);
+      if (m) { if (at < 0 || m.index < at) at = m.index; break; }
     }
   }
   const start = at < 0 ? 0 : Math.max(0, at - 60);
