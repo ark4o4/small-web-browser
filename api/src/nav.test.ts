@@ -64,3 +64,10 @@ test('text extraction and snippets', () => {
   assert.equal(t, 'Hi The tide & the moon');
   assert.match(snippet(t, 'tides'), /tide/);
 });
+
+test('snippet matches the whole word, not a stem inside another word', () => {
+  const t = 'Tidepool ' + 'x '.repeat(80) + 'the next tide returns.';
+  const s = snippet(t, 'tides');
+  assert.match(s, /next tide/);
+  assert.doesNotMatch(s, /^Tidepool/);
+});
