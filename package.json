@@ -1,0 +1,13 @@
+{
+  "name": "smallweb",
+  "private": true,
+  "workspaces": ["api", "web"],
+  "scripts": {
+    "install:all": "npm install",
+    "db": "docker compose up -d mongo",
+    "seed": "npm run seed -w api",
+    "dev:api": "npm run dev -w api",
+    "dev:web": "npm run dev -w web",
+    "test": "npm test -w api"
+  }
+}
